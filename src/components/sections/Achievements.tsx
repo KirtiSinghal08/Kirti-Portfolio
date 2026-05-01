@@ -315,7 +315,7 @@ return (
           {/* Carousel: show click hint if has images */}
           {hasImages && mode === "carousel" && (
             <p className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground/60 font-semibold">
-              Click to view certificate
+              certificate | Description
             </p>
           )}
 
