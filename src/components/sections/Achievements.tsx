@@ -210,28 +210,32 @@ function AchievementCard({
 
         {/* Slide-up image overlay — grid only */}
         {hasImages && mode === "grid" && (
-          <div className="absolute inset-x-0 bottom-0 h-[70%] z-10
-            translate-y-full group-hover:translate-y-0
-            transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
-            <div className="absolute inset-x-0 top-0 h-8 z-10
-              bg-gradient-to-b from-background/80 to-transparent backdrop-blur-sm" />
-            <img
-              src={images[0]}
-              alt={title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-x-0 bottom-0 h-1/2
-              bg-gradient-to-t from-black/60 to-transparent" />
-            <div className="absolute bottom-3 left-4 right-4 flex flex-wrap gap-1.5 z-20">
-              {tags.map((t) => (
-                <span key={t} className="px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide
-                  bg-white/20 text-white border border-white/30 backdrop-blur-md">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
+  <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500">
+    
+    {/* Image */}
+    <img
+      src={images[0]}
+      alt={title}
+      className="w-full h-full object-cover rounded-3xl"
+    />
+
+    {/* Dark overlay for readability */}
+    <div className="absolute inset-0 bg-black/40 rounded-3xl"></div>
+
+    {/* Tags on image */}
+    <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-1.5 z-20">
+      {tags.map((t) => (
+        <span
+          key={t}
+          className="px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide
+          bg-white/20 text-white border border-white/30 backdrop-blur-md"
+        >
+          {t}
+        </span>
+      ))}
+    </div>
+  </div>
+)}
 
         {/* Card content */}
         <div className="relative z-[5] p-6 md:p-7">
@@ -311,11 +315,11 @@ function AchievementCard({
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out"
           onClick={() => setLightbox(false)}
         >
-          <div className="bg-white/10 backdrop-blur-xl p-3 rounded-3xl shadow-2xl">
+          <div className="flex items-center justify-center w-[80vw] max-w-md aspect-[16/10] bg-white rounded-xl">
   <img
     src={images![0]}
     alt={title}
-    className="w-[360px] h-[220px] object-contain rounded-xl"
+    className="max-w-full max-h-full object-contain"
   />
 </div>
         </div>
