@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
 import { Trophy, Code2, Flag, Award, Sparkles, LayoutGrid, GalleryHorizontalEnd } from "lucide-react";
+import sihCert from "@/components/sections/sihcertificate.jpeg";
+import sihClg from "@/components/sections/sihclg.jpeg";
+import ctf from "@/components/sections/CTF.jpeg";
+import hackamor from "@/components/sections/HACKMoR.jpeg";
+import hackwithindia from "@/components/sections/HackWithIndia.jpeg";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -17,6 +22,7 @@ type Item = {
   description: string;
   tags: string[];
   highlight?: boolean;
+  image?: string;
 };
 
 const items: Item[] = [
@@ -28,6 +34,7 @@ const items: Item[] = [
       "Built RakshaNetra, an AI-based defense safety portal, competing against thousands of teams across India and securing a Top 5 finalist spot.",
     tags: ["AI/ML", "Real-Time Systems", "React + Python"],
     highlight: true,
+    image: sihCert
   },
   {
     icon: Code2,
@@ -183,6 +190,15 @@ function AchievementCard({
         } ${extraClass}`}
       style={{ animationDelay: `${index * 0.06}s`, zIndex: highlight ? 10 : 1 }}
     >
+    {item.image && (
+  <div className="absolute -top-6 -right-6 w-40 h-28 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-4 transition-all duration-500 z-20 shadow-xl rounded-xl overflow-hidden">
+    <img
+      src={item.image}
+      alt={item.title}
+      className="w-full h-full object-cover"
+    />
+  </div>
+)}
       <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_top_right,theme(colors.white/0.5),transparent_60%)] dark:bg-[radial-gradient(circle_at_top_right,theme(colors.white/0.08),transparent_60%)]" />
 
       <div className="relative">
