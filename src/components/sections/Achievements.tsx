@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Trophy, Code2, Flag, Award, Sparkles, LayoutGrid, GalleryHorizontalEnd } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
 import sihCert from "@/components/sections/sihcertificate.jpeg";
@@ -197,24 +197,31 @@ function AchievementCard({
   const [imgIndex, setImgIndex] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  return (
-    <>
-      <div
-  onClick={() => hasImages && mode === "carousel" && setLightbox(true)}
-  onMouseEnter={() => {
-  if (images && images.length > 1 && intervalRef.current === null) {
+useEffect(() => {
+  if (images && images.length > 1) {
+    setImgIndex(0);
+
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
     intervalRef.current = setInterval(() => {
       setImgIndex((prev) => (prev + 1) % images.length);
-    }, 1200);
+    }, 1500);
   }
-}}
-  onMouseLeave={() => {
-  if (intervalRef.current !== null) {
-    clearInterval(intervalRef.current);
-    intervalRef.current = null;
-  }
-  setImgIndex(0);
-}}
+
+  return () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+}, [images]);
+return (  
+  <>
+      <div
+  onClick={() => hasImages && mode === "carousel" && setLightbox(true)}
+  
   className={`group reveal relative w-full overflow-hidden rounded-3xl transition-all duration-500 ease-out will-change-transform transform-gpu cursor-pointer
           hover:-translate-y-3 hover:z-20
           hover:shadow-[0_32px_80px_-12px_rgba(0,0,0,0.35)]
