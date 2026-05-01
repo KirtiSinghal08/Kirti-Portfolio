@@ -22,7 +22,7 @@ type Item = {
   description: string;
   tags: string[];
   highlight?: boolean;
-  image?: string;
+  images?: string[];
 };
 
 const items: Item[] = [
@@ -34,7 +34,7 @@ const items: Item[] = [
       "Built RakshaNetra, an AI-based defense safety portal, competing against thousands of teams across India and securing a Top 5 finalist spot.",
     tags: ["AI/ML", "Real-Time Systems", "React + Python"],
     highlight: true,
-    image: sihCert,
+    images: [sihCert, sihClg],
   },
   {
     icon: Code2,
@@ -51,7 +51,7 @@ const items: Item[] = [
     description:
       "Participated in an intense student hackathon — sharpened teamwork, rapid prototyping, and problem-framing under pressure.",
     tags: ["JavaScript", "Debugging", "Rapid Prototyping"],
-    image: hackamor,
+    images: [hackamor],
   },
   {
     icon: Code2,
@@ -60,7 +60,7 @@ const items: Item[] = [
     description:
       "Took part in a pan-India hackathon exploring real-world problem statements with a strong focus on impact and feasibility.",
     tags: ["Full Stack", "APIs", "Product Thinking"],
-    image: hackwithindia,
+    images: [hackwithindia],
   },
   {
     icon: Flag,
@@ -69,7 +69,7 @@ const items: Item[] = [
     description:
       "Solved Capture-The-Flag challenges covering web exploitation, cryptography and reverse-engineering — built a security-first mindset.",
     tags: ["Web Exploitation", "Cryptography", "Reverse Engineering"],
-    image: ctf,
+    images: [ctf],
   },
   {
     icon: Award,
@@ -155,7 +155,7 @@ export function Achievements() {
                   key={item.title}
                   className="pl-4 md:basis-1/2 lg:basis-1/3"
                 >
-                  <div className="h-full py-2">
+                  <div className="h-full py-2 overflow-visible">
                     <AchievementCard item={item} index={i} extraClass="h-full" />
                   </div>
                 </CarouselItem>
@@ -181,11 +181,13 @@ function AchievementCard({
   index: number;
   extraClass?: string;
 }) {
-  const { icon: Icon, title, detail, year, description, tags, highlight } = item;
+  const { icon: Icon, title, detail, year, description, tags, highlight, images } = item;
+
   return (
     <div
-      className={`group reveal relative rounded-3xl p-6 md:p-7 transition-all duration-500 ease-out will-change-transform cursor-default
-        hover:scale-[1.04] hover:-translate-y-2 hover:z-20 hover:shadow-silk-lg
+      className={`group reveal relative overflow-visible rounded-3xl p-6 md:p-7 transition-all duration-500 ease-out will-change-transform transform-gpu cursor-default
+        hover:scale-[1.04] hover:-translate-y-3 hover:z-20
+        hover:shadow-[0_20px_60px_-10px_rgba(0,0,0,0.25)]
         ${
           highlight
             ? "bg-gradient-to-br from-lavender via-petal to-azure border border-background/50 shadow-silk-lg"
@@ -193,18 +195,32 @@ function AchievementCard({
         } ${extraClass}`}
       style={{ animationDelay: `${index * 0.06}s`, zIndex: highlight ? 10 : 1 }}
     >
-    {item.image && (
-  <div className="absolute -top-6 -right-6 w-40 h-28 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-4 transition-all duration-500 z-20 shadow-xl rounded-xl overflow-hidden">
-    <img
-      src={item.image}
-      alt={item.title}
-      className="w-full h-full object-cover"
-    />
-  </div>
-)}
+      {/* Glow effect */}
       <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_top_right,theme(colors.white/0.5),transparent_60%)] dark:bg-[radial-gradient(circle_at_top_right,theme(colors.white/0.08),transparent_60%)]" />
 
+      {/* Floating certificate stack */}
+      {images && images.length > 0 && (
+        <div className="absolute top-0 right-0 translate-x-10 -translate-y-10 flex flex-col gap-3
+          opacity-0 group-hover:opacity-100 group-hover:-translate-y-8
+          transition-all duration-500 z-20 pointer-events-none">
+          {images.slice(0, 3).map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              alt="certificate"
+              className={`w-48 h-32 object-cover bg-white/90 backdrop-blur-md rounded-xl shadow-2xl border border-white/30
+                transition-all duration-500 group-hover:scale-105
+                ${i === 0 ? "rotate-[-6deg]" : ""}
+                ${i === 1 ? "rotate-[2deg] ml-6" : ""}
+                ${i === 2 ? "rotate-[6deg] ml-12" : ""}
+              `}
+            />
+          ))}
+        </div>
+      )}
+
       <div className="relative">
+        {/* Icon */}
         <div className="flex items-start justify-between mb-4">
           <div
             className={`size-12 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg] ${
@@ -224,6 +240,7 @@ function AchievementCard({
           )}
         </div>
 
+        {/* Featured badge */}
         {highlight && (
           <p className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-bold text-twilight/80 mb-2">
             <Sparkles className="size-3" />
@@ -231,6 +248,7 @@ function AchievementCard({
           </p>
         )}
 
+        {/* Title */}
         <h3
           className={`font-display leading-tight ${
             highlight ? "text-2xl md:text-3xl text-twilight" : "text-xl text-foreground"
@@ -238,6 +256,8 @@ function AchievementCard({
         >
           {title}
         </h3>
+
+        {/* Detail */}
         <p
           className={`mt-2 text-sm ${
             highlight ? "text-twilight/80 font-medium" : "text-muted-foreground"
@@ -246,6 +266,7 @@ function AchievementCard({
           {detail}
         </p>
 
+        {/* Description + Tags reveal */}
         <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
           <div className="overflow-hidden">
             <p
