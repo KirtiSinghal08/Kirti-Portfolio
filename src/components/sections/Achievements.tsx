@@ -154,7 +154,7 @@ export function Achievements() {
               {items.map((item, i) => (
                 <CarouselItem
                   key={item.title}
-                  className="pl-4 md:basis-1/2 lg:basis-1/3"
+                  className="pl-4 md:basis-1/2 lg:basis-1/3 min-w-0"
                 >
                   <div className="h-full py-2">
                     <AchievementCard item={item} index={i} mode="carousel" extraClass="h-full" />
@@ -170,6 +170,7 @@ export function Achievements() {
         )}
       </div>
     </section>
+    
   );
 }
 
@@ -191,8 +192,8 @@ function AchievementCard({
   return (
     <>
       <div
-        onClick={() => hasImages && mode === "carousel" && setLightbox(true)}
-        className={`group reveal relative rounded-3xl transition-all duration-500 ease-out will-change-transform transform-gpu cursor-pointer
+  onClick={() => hasImages && mode === "carousel" && setLightbox(true)}
+  className={`group reveal relative w-full overflow-hidden rounded-3xl transition-all duration-500 ease-out will-change-transform transform-gpu cursor-pointer
           hover:-translate-y-3 hover:z-20
           hover:shadow-[0_32px_80px_-12px_rgba(0,0,0,0.35)]
           ${mode === "grid" ? "overflow-hidden" : "overflow-hidden"}
@@ -238,7 +239,7 @@ function AchievementCard({
 )}
 
         {/* Card content */}
-        <div className="relative z-[5] p-6 md:p-7">
+        <div className="relative z-[5] p-6 md:p-7 flex flex-col h-full">
           <div className="flex items-start justify-between mb-4">
             <div className={`size-12 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg] ${
               highlight ? "bg-background/70 shadow-silk" : "bg-gradient-to-br from-lavender to-petal"
@@ -272,6 +273,15 @@ function AchievementCard({
           }`}>
             {detail}
           </p>
+          {hasImages && mode === "carousel" && (
+  <div className="mt-4 w-full h-[160px] flex items-center justify-center rounded-xl overflow-hidden bg-background/40">
+    <img
+      src={images[0]}
+      alt={title}
+      className="max-w-full max-h-full object-contain image-rendering-auto"
+    />
+  </div>
+)}
 
           {/* Carousel: show click hint if has images */}
           {hasImages && mode === "carousel" && (
@@ -280,11 +290,12 @@ function AchievementCard({
             </p>
           )}
 
-          <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${
-            hasImages && mode === "grid"
-              ? "grid-rows-[0fr]"
-              : "grid-rows-[0fr] group-hover:grid-rows-[1fr]"
-          }`}>
+          <div className="mt-auto">
+  <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${
+    hasImages && mode === "grid"
+      ? "grid-rows-[0fr]"
+      : "grid-rows-[0fr] group-hover:grid-rows-[1fr]"
+  }`}>
             <div className="overflow-hidden">
               <p className={`mt-4 text-[13px] leading-relaxed opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-500 delay-75 ${
                 highlight ? "text-twilight/85" : "text-muted-foreground"
@@ -308,22 +319,26 @@ function AchievementCard({
           </div>
         </div>
       </div>
-
-      {/* Lightbox — carousel mode only */}
-      {lightbox && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out"
-          onClick={() => setLightbox(false)}
-        >
-          <div className="flex items-center justify-center w-[80vw] max-w-md aspect-[16/10] bg-white rounded-xl">
-  <img
-    src={images![0]}
-    alt={title}
-    className="max-w-full max-h-full object-contain"
-  />
-</div>
-        </div>
-      )}
-    </>
-  );
+    </div>  
+{lightbox && (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+    onClick={() => setLightbox(false)}
+  >
+    <div
+      className="bg-white/10 backdrop-blur-xl p-3 rounded-3xl shadow-2xl"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="flex items-center justify-center w-[80vw] max-w-md aspect-[16/10] bg-black/90 rounded-xl">
+        <img
+          src={images![0]}
+          alt={title}
+          className="max-w-full max-h-full object-contain scale-95 animate-in zoom-in-95 duration-300"
+        />
+      </div>
+    </div>
+  </div>
+)}
+</>   
+);
 }
