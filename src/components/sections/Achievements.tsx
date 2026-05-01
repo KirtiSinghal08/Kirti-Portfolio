@@ -34,7 +34,7 @@ const items: Item[] = [
       "Built RakshaNetra, an AI-based defense safety portal, competing against thousands of teams across India and securing a Top 5 finalist spot.",
     tags: ["AI/ML", "Real-Time Systems", "React + Python"],
     highlight: true,
-    image: sihCert
+    image: sihCert,
   },
   {
     icon: Code2,
@@ -51,6 +51,7 @@ const items: Item[] = [
     description:
       "Participated in an intense student hackathon — sharpened teamwork, rapid prototyping, and problem-framing under pressure.",
     tags: ["JavaScript", "Debugging", "Rapid Prototyping"],
+    image: hackamor,
   },
   {
     icon: Code2,
@@ -59,6 +60,7 @@ const items: Item[] = [
     description:
       "Took part in a pan-India hackathon exploring real-world problem statements with a strong focus on impact and feasibility.",
     tags: ["Full Stack", "APIs", "Product Thinking"],
+    image: hackwithindia,
   },
   {
     icon: Flag,
@@ -67,6 +69,7 @@ const items: Item[] = [
     description:
       "Solved Capture-The-Flag challenges covering web exploitation, cryptography and reverse-engineering — built a security-first mindset.",
     tags: ["Web Exploitation", "Cryptography", "Reverse Engineering"],
+    image: ctf,
   },
   {
     icon: Award,
