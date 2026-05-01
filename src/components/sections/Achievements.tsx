@@ -1,6 +1,11 @@
 import { useRef, useState } from "react";
 import { Trophy, Code2, Flag, Award, Sparkles, LayoutGrid, GalleryHorizontalEnd } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
+import sihCert from "@/components/sections/sihcertificate.jpeg";
+import sihClg from "@/components/sections/sihclg.jpeg";
+import ctf from "@/components/sections/CTF.jpeg";
+import hackamor from "@/components/sections/HACKMoR.jpeg";
+import hackwithindia from "@/components/sections/HackWithIndia.jpeg";
 import {
   Carousel,
   CarouselContent,
@@ -8,12 +13,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
-const sihCert = "/certs/sihcertificate.jpeg";
-const sihClg = "/certs/sihclg.jpeg";
-const ctf = "/certs/CTF.jpeg";
-const hackamor = "/certs/HACKMoR.jpeg";
-const hackwithindia = "/certs/HackWithIndia.jpeg";
 
 type Item = {
   icon: typeof Trophy;
