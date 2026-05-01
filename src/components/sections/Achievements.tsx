@@ -131,42 +131,41 @@ export function Achievements() {
             </button>
           </div>
         </div>
-
-        {view === "grid" ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10 sm:gap-y-6 pt-6">
-            {items.map((item, i) => (
-  <AchievementCard
-    key={item.title}
-    item={item}
-    index={i}
-    extraClass={item.highlight ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}
-  />
-))}
-          </div>
-        ) : (
-          <Carousel
-  opts={{ align: "start", loop: true }}
-  plugins={[autoplay.current]}
-  className="reveal pt-6 overflow-visible"   {/* ← add overflow-visible */}
->
-  <CarouselContent className="-ml-4 overflow-visible">  {/* ← add overflow-visible */}
+{view === "grid" ? (
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10 sm:gap-y-6 pt-6">
     {items.map((item, i) => (
-      <CarouselItem
+      <AchievementCard
         key={item.title}
-        className="pl-4 md:basis-1/2 lg:basis-1/3 overflow-visible"  {/* ← add overflow-visible */}
-      >
-        <div className="h-full py-2 overflow-visible">   {/* ← add overflow-visible */}
-          <AchievementCard item={item} index={i} extraClass="h-full" />
-        </div>
-      </CarouselItem>
+        item={item}
+        index={i}
+        extraClass={item.highlight ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}
+      />
     ))}
-  </CarouselContent>
-            <div className="flex items-center justify-end gap-2 mt-6">
-              <CarouselPrevious className="static translate-y-0 size-10 glass-panel" />
-              <CarouselNext className="static translate-y-0 size-10 glass-panel" />
-            </div>
-          </Carousel>
-        )}
+  </div>
+) : (
+  <Carousel
+    opts={{ align: "start", loop: true }}
+    plugins={[autoplay.current]}
+    className="reveal pt-6 overflow-visible"
+  >
+    <CarouselContent className="-ml-4 overflow-visible">
+      {items.map((item, i) => (
+        <CarouselItem
+          key={item.title}
+          className="pl-4 md:basis-1/2 lg:basis-1/3 overflow-visible"
+        >
+          <div className="h-full py-2 overflow-visible">
+            <AchievementCard item={item} index={i} extraClass="h-full" />
+          </div>
+        </CarouselItem>
+      ))}
+    </CarouselContent>
+    <div className="flex items-center justify-end gap-2 mt-6">
+      <CarouselPrevious className="static translate-y-0 size-10 glass-panel" />
+      <CarouselNext className="static translate-y-0 size-10 glass-panel" />
+    </div>
+  </Carousel>
+)}
       </div>
     </section>
   );
