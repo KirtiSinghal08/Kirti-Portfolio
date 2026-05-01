@@ -55,7 +55,7 @@ const projects: Project[] = [
     gradient: "from-petal to-lavender",
     initial: "F",
     image: fitcheckImg,
-    live: "https://fitcheck.vercel.app/",
+    live: "https://kirtisinghal08.github.io/Fitcheck/",
     github: "https://github.com/KirtiSinghal08/Fitcheck"
   },
   {
@@ -67,7 +67,7 @@ const projects: Project[] = [
     gradient: "from-mint to-azure",
     initial: "C",
     image: chatbotImg,
-    live: "https://mru-chatbot.vercel.app/",
+    live: "https://kirtisinghal08.github.io/MRU-Chatbot/",
     github: "https://github.com/KirtiSinghal08/MRU-Chatbot"
   },
   {
