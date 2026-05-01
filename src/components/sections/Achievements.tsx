@@ -145,22 +145,22 @@ export function Achievements() {
           </div>
         ) : (
           <Carousel
-            opts={{ align: "start", loop: true }}
-            plugins={[autoplay.current]}
-            className="reveal pt-6"
-          >
-            <CarouselContent className="-ml-4">
-              {items.map((item, i) => (
-                <CarouselItem
-                  key={item.title}
-                  className="pl-4 md:basis-1/2 lg:basis-1/3"
-                >
-                  <div className="h-full py-2 overflow-visible">
-                    <AchievementCard item={item} index={i} extraClass="h-full" />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
+  opts={{ align: "start", loop: true }}
+  plugins={[autoplay.current]}
+  className="reveal pt-6 overflow-visible"   {/* ← add overflow-visible */}
+>
+  <CarouselContent className="-ml-4 overflow-visible">  {/* ← add overflow-visible */}
+    {items.map((item, i) => (
+      <CarouselItem
+        key={item.title}
+        className="pl-4 md:basis-1/2 lg:basis-1/3 overflow-visible"  {/* ← add overflow-visible */}
+      >
+        <div className="h-full py-2 overflow-visible">   {/* ← add overflow-visible */}
+          <AchievementCard item={item} index={i} extraClass="h-full" />
+        </div>
+      </CarouselItem>
+    ))}
+  </CarouselContent>
             <div className="flex items-center justify-end gap-2 mt-6">
               <CarouselPrevious className="static translate-y-0 size-10 glass-panel" />
               <CarouselNext className="static translate-y-0 size-10 glass-panel" />
