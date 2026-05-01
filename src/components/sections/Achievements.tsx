@@ -38,14 +38,6 @@ const items: Item[] = [
   },
   {
     icon: Code2,
-    title: "GoDaddy Hackathon",
-    detail: "Participant",
-    description:
-      "Collaborated on a rapid-build product challenge — focused on clean UX and shipping a working MVP within the time limit.",
-    tags: ["React.js", "Frontend Dev", "MVP Build"],
-  },
-  {
-    icon: Code2,
     title: "HackMor",
     detail: "Participant",
     description:
@@ -70,6 +62,14 @@ const items: Item[] = [
       "Solved Capture-The-Flag challenges covering web exploitation, cryptography and reverse-engineering — built a security-first mindset.",
     tags: ["Web Exploitation", "Cryptography", "Reverse Engineering"],
     images: [ctf],
+  },
+  {
+    icon: Code2,
+    title: "GoDaddy Hackathon",
+    detail: "Participant",
+    description:
+      "Collaborated on a rapid-build product challenge — focused on clean UX and shipping a working MVP within the time limit.",
+    tags: ["React.js", "Frontend Dev", "MVP Build"],
   },
   {
     icon: Award,
