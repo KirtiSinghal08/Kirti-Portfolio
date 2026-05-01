@@ -1,8 +1,9 @@
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowUpRight, Star, Github } from "lucide-react";
 import bubutalkImg from "@/components/sections/BubuTalk.png";
 import rakshaImg from "@/components/sections/RakshaNetra.png";
 import fitcheckImg from "@/components/sections/Fitcheck.png";
 import chatbotImg from "@/components/sections/MRUChatbot.png";
+import carparkingImg from "@/components/sections/CarParking.png";
 
 type Project = {
   name: string;
@@ -42,7 +43,8 @@ const projects: Project[] = [
     featured: true,
     gradient: "from-azure via-lavender to-mint",
     initial: "R",
-    image: rakshaImg
+    image: rakshaImg,
+    live: "https://canva.link/d75uv6n82240ydq"
   },
   {
     name: "FitCheck",
@@ -53,6 +55,7 @@ const projects: Project[] = [
     gradient: "from-petal to-lavender",
     initial: "F",
     image: fitcheckImg,
+    live: "https://fitcheck.vercel.app/",
     github: "https://github.com/KirtiSinghal08/Fitcheck"
   },
   {
@@ -64,6 +67,7 @@ const projects: Project[] = [
     gradient: "from-mint to-azure",
     initial: "C",
     image: chatbotImg,
+    live: "https://mru-chatbot.vercel.app/",
     github: "https://github.com/KirtiSinghal08/MRU-Chatbot"
   },
   {
@@ -74,6 +78,8 @@ const projects: Project[] = [
     stack: ["Arduino", "Sensors"],
     gradient: "from-azure to-petal",
     initial: "P",
+    image: carparkingImg,
+    live: "https://canva.link/2rq3ddkzsl7g3d9"
   },
 ];
 
@@ -110,9 +116,9 @@ function Card({ p, large }: { p: Project; large?: boolean }) {
             {p.badge}
           </div>
         )}
-        <button className="absolute top-4 right-4 size-10 rounded-full bg-twilight text-primary-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300">
+        <div className="absolute top-4 right-4 size-10 rounded-full bg-twilight text-primary-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300">
           <ArrowUpRight className="size-4" />
-        </button>
+        </div>
       </div>
 
       <div className="p-6 md:p-7 space-y-3">
@@ -133,6 +139,33 @@ function Card({ p, large }: { p: Project; large?: boolean }) {
             </span>
           ))}
         </div>
+
+        {/* LIVE + CODE BUTTONS */}
+<div className="flex gap-3 pt-3">
+  {p.live && (
+    <span
+      onClick={(e) => { e.preventDefault(); window.open(p.live!, "_blank"); }}
+      className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-green-500/10 text-green-600 hover:bg-green-500/20 transition cursor-pointer"
+    >
+      <span className="relative flex h-2 w-2">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+      </span>
+      LIVE
+    </span>
+  )}
+
+  {p.github && (
+    <span
+      onClick={(e) => { e.preventDefault(); window.open(p.github!, "_blank"); }}
+      className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-gray-500/10 text-gray-700 hover:bg-gray-500/20 transition cursor-pointer"
+    >
+      <Github className="size-3" />
+      CODE
+    </span>
+          )}
+        </div>
+
       </div>
     </a>
   );
