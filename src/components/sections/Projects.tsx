@@ -3,7 +3,7 @@ import bubutalkImg from "@/components/sections/BubuTalk.png";
 import rakshaImg from "@/components/sections/RakshaNetra.png";
 import fitcheckImg from "@/components/sections/Fitcheck.png";
 import chatbotImg from "@/components/sections/MRUChatbot.png";
-import carparkingImg from "@/components/sections/CarParking.png";
+import carparkingImg from "@/components/sections/carparkingtollgatewaysystem.jpeg";
 
 type Project = {
   name: string;
