@@ -1,10 +1,5 @@
 import { useRef, useState } from "react";
 import { Trophy, Code2, Flag, Award, Sparkles, LayoutGrid, GalleryHorizontalEnd } from "lucide-react";
-const sihCert = "/certs/sihcertificate.jpeg";
-const sihClg = "/certs/sihclg.jpeg";
-const ctf = "/certs/CTF.jpeg";
-const hackamor = "/certs/HACKMoR.jpeg";
-const hackwithindia = "/certs/HackWithIndia.jpeg";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -13,6 +8,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+
+const sihCert = "/certs/sihcertificate.jpeg";
+const sihClg = "/certs/sihclg.jpeg";
+const ctf = "/certs/CTF.jpeg";
+const hackamor = "/certs/HACKMoR.jpeg";
+const hackwithindia = "/certs/HackWithIndia.jpeg";
 
 type Item = {
   icon: typeof Trophy;
@@ -131,41 +132,43 @@ export function Achievements() {
             </button>
           </div>
         </div>
-{view === "grid" ? (
-  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10 sm:gap-y-6 pt-6">
-    {items.map((item, i) => (
-      <AchievementCard
-        key={item.title}
-        item={item}
-        index={i}
-        extraClass={item.highlight ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}
-      />
-    ))}
-  </div>
-) : (
-  <Carousel
-    opts={{ align: "start", loop: true }}
-    plugins={[autoplay.current]}
-    className="reveal pt-6 overflow-visible"
-  >
-    <CarouselContent className="-ml-4 overflow-visible">
-      {items.map((item, i) => (
-        <CarouselItem
-          key={item.title}
-          className="pl-4 md:basis-1/2 lg:basis-1/3 overflow-visible"
-        >
-          <div className="h-full py-2 overflow-visible">
-            <AchievementCard item={item} index={i} extraClass="h-full" />
+
+        {view === "grid" ? (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10 sm:gap-y-6 pt-6">
+            {items.map((item, i) => (
+              <AchievementCard
+                key={item.title}
+                item={item}
+                index={i}
+                mode="grid"
+                extraClass={item.highlight ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}
+              />
+            ))}
           </div>
-        </CarouselItem>
-      ))}
-    </CarouselContent>
-    <div className="flex items-center justify-end gap-2 mt-6">
-      <CarouselPrevious className="static translate-y-0 size-10 glass-panel" />
-      <CarouselNext className="static translate-y-0 size-10 glass-panel" />
-    </div>
-  </Carousel>
-)}
+        ) : (
+          <Carousel
+            opts={{ align: "start", loop: true }}
+            plugins={[autoplay.current]}
+            className="reveal pt-6"
+          >
+            <CarouselContent className="-ml-4">
+              {items.map((item, i) => (
+                <CarouselItem
+                  key={item.title}
+                  className="pl-4 md:basis-1/2 lg:basis-1/3"
+                >
+                  <div className="h-full py-2">
+                    <AchievementCard item={item} index={i} mode="carousel" extraClass="h-full" />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex items-center justify-end gap-2 mt-6">
+              <CarouselPrevious className="static translate-y-0 size-10 glass-panel" />
+              <CarouselNext className="static translate-y-0 size-10 glass-panel" />
+            </div>
+          </Carousel>
+        )}
       </div>
     </section>
   );
@@ -174,124 +177,148 @@ export function Achievements() {
 function AchievementCard({
   item,
   index,
+  mode,
   extraClass = "",
 }: {
   item: Item;
   index: number;
+  mode: "grid" | "carousel";
   extraClass?: string;
 }) {
+  const [lightbox, setLightbox] = useState(false);
   const { icon: Icon, title, detail, year, description, tags, highlight, images } = item;
+  const hasImages = images && images.length > 0;
 
   return (
-    <div
-      className={`group reveal relative overflow-visible rounded-3xl p-6 md:p-7 transition-all duration-500 ease-out will-change-transform transform-gpu cursor-default
-        hover:scale-[1.04] hover:-translate-y-3 hover:z-20
-        hover:shadow-[0_20px_60px_-10px_rgba(0,0,0,0.25)]
-        ${
-          highlight
-            ? "bg-gradient-to-br from-lavender via-petal to-azure border border-background/50 shadow-silk-lg"
-            : "glass-panel"
-        } ${extraClass}`}
-      style={{ animationDelay: `${index * 0.06}s`, zIndex: highlight ? 10 : 1 }}
-    >
-      {/* Glow effect */}
-      <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_top_right,theme(colors.white/0.5),transparent_60%)] dark:bg-[radial-gradient(circle_at_top_right,theme(colors.white/0.08),transparent_60%)]" />
+    <>
+      <div
+        onClick={() => hasImages && mode === "carousel" && setLightbox(true)}
+        className={`group reveal relative rounded-3xl transition-all duration-500 ease-out will-change-transform transform-gpu cursor-pointer
+          hover:-translate-y-3 hover:z-20
+          hover:shadow-[0_32px_80px_-12px_rgba(0,0,0,0.35)]
+          ${mode === "grid" ? "overflow-hidden" : "overflow-hidden"}
+          ${
+            highlight
+              ? "bg-gradient-to-br from-lavender via-petal to-azure border border-background/50 shadow-silk-lg"
+              : "glass-panel"
+          } ${extraClass}`}
+        style={{ animationDelay: `${index * 0.06}s`, zIndex: highlight ? 10 : 1 }}
+      >
+        {/* Glow */}
+        <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500
+          bg-[radial-gradient(circle_at_top_right,theme(colors.white/0.5),transparent_60%)]
+          dark:bg-[radial-gradient(circle_at_top_right,theme(colors.white/0.08),transparent_60%)]" />
 
-      {/* Floating certificate stack */}
-      {images && images.length > 0 && (
-        <div className="absolute top-0 right-0 translate-x-10 -translate-y-10 flex flex-col gap-3
-          opacity-0 group-hover:opacity-100 group-hover:-translate-y-8
-          transition-all duration-500 z-20 pointer-events-none">
-          {images.slice(0, 3).map((img, i) => (
+        {/* Slide-up image overlay — grid only */}
+        {hasImages && mode === "grid" && (
+          <div className="absolute inset-x-0 bottom-0 h-[70%] z-10
+            translate-y-full group-hover:translate-y-0
+            transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+            <div className="absolute inset-x-0 top-0 h-8 z-10
+              bg-gradient-to-b from-background/80 to-transparent backdrop-blur-sm" />
             <img
-              key={i}
-              src={img}
-              alt="certificate"
-              className={`w-48 h-32 object-cover bg-white/90 backdrop-blur-md rounded-xl shadow-2xl border border-white/30
-                transition-all duration-500 group-hover:scale-105
-                ${i === 0 ? "rotate-[-6deg]" : ""}
-                ${i === 1 ? "rotate-[2deg] ml-6" : ""}
-                ${i === 2 ? "rotate-[6deg] ml-12" : ""}
-              `}
+              src={images[0]}
+              alt={title}
+              className="w-full h-full object-cover"
             />
-          ))}
-        </div>
-      )}
-
-      <div className="relative">
-        {/* Icon */}
-        <div className="flex items-start justify-between mb-4">
-          <div
-            className={`size-12 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg] ${
-              highlight ? "bg-background/70 shadow-silk" : "bg-gradient-to-br from-lavender to-petal"
-            }`}
-          >
-            <Icon className="size-5 text-twilight" />
-          </div>
-          {year && (
-            <span
-              className={`text-[10px] uppercase tracking-widest font-bold tabular-nums ${
-                highlight ? "text-twilight/70" : "text-muted-foreground"
-              }`}
-            >
-              {year}
-            </span>
-          )}
-        </div>
-
-        {/* Featured badge */}
-        {highlight && (
-          <p className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-bold text-twilight/80 mb-2">
-            <Sparkles className="size-3" />
-            Featured Achievement
-          </p>
-        )}
-
-        {/* Title */}
-        <h3
-          className={`font-display leading-tight ${
-            highlight ? "text-2xl md:text-3xl text-twilight" : "text-xl text-foreground"
-          }`}
-        >
-          {title}
-        </h3>
-
-        {/* Detail */}
-        <p
-          className={`mt-2 text-sm ${
-            highlight ? "text-twilight/80 font-medium" : "text-muted-foreground"
-          }`}
-        >
-          {detail}
-        </p>
-
-        {/* Description + Tags reveal */}
-        <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
-          <div className="overflow-hidden">
-            <p
-              className={`mt-4 text-[13px] leading-relaxed opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-500 delay-75 ${
-                highlight ? "text-twilight/85" : "text-muted-foreground"
-              }`}
-            >
-              {description}
-            </p>
-            <div className="mt-3 flex flex-wrap gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
+            <div className="absolute inset-x-0 bottom-0 h-1/2
+              bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="absolute bottom-3 left-4 right-4 flex flex-wrap gap-1.5 z-20">
               {tags.map((t) => (
-                <span
-                  key={t}
-                  className={`px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide ${
-                    highlight
-                      ? "bg-background/70 text-twilight border border-background/60"
-                      : "bg-background/60 text-foreground/70 border border-border"
-                  }`}
-                >
+                <span key={t} className="px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide
+                  bg-white/20 text-white border border-white/30 backdrop-blur-md">
                   {t}
                 </span>
               ))}
             </div>
           </div>
+        )}
+
+        {/* Card content */}
+        <div className="relative z-[5] p-6 md:p-7">
+          <div className="flex items-start justify-between mb-4">
+            <div className={`size-12 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg] ${
+              highlight ? "bg-background/70 shadow-silk" : "bg-gradient-to-br from-lavender to-petal"
+            }`}>
+              <Icon className="size-5 text-twilight" />
+            </div>
+            {year && (
+              <span className={`text-[10px] uppercase tracking-widest font-bold tabular-nums ${
+                highlight ? "text-twilight/70" : "text-muted-foreground"
+              }`}>
+                {year}
+              </span>
+            )}
+          </div>
+
+          {highlight && (
+            <p className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-bold text-twilight/80 mb-2">
+              <Sparkles className="size-3" />
+              Featured Achievement
+            </p>
+          )}
+
+          <h3 className={`font-display leading-tight ${
+            highlight ? "text-2xl md:text-3xl text-twilight" : "text-xl text-foreground"
+          }`}>
+            {title}
+          </h3>
+
+          <p className={`mt-2 text-sm ${
+            highlight ? "text-twilight/80 font-medium" : "text-muted-foreground"
+          }`}>
+            {detail}
+          </p>
+
+          {/* Carousel: show click hint if has images */}
+          {hasImages && mode === "carousel" && (
+            <p className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground/60 font-semibold">
+              Click to view certificate
+            </p>
+          )}
+
+          <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${
+            hasImages && mode === "grid"
+              ? "grid-rows-[0fr]"
+              : "grid-rows-[0fr] group-hover:grid-rows-[1fr]"
+          }`}>
+            <div className="overflow-hidden">
+              <p className={`mt-4 text-[13px] leading-relaxed opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-500 delay-75 ${
+                highlight ? "text-twilight/85" : "text-muted-foreground"
+              }`}>
+                {description}
+              </p>
+              {(!hasImages || mode === "carousel") && (
+                <div className="mt-3 flex flex-wrap gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
+                  {tags.map((t) => (
+                    <span key={t} className={`px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide ${
+                      highlight
+                        ? "bg-background/70 text-twilight border border-background/60"
+                        : "bg-background/60 text-foreground/70 border border-border"
+                    }`}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Lightbox — carousel mode only */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out"
+          onClick={() => setLightbox(false)}
+        >
+          <img
+            src={images![0]}
+            alt={title}
+            className="max-w-[90vw] max-h-[90vh] object-contain rounded-2xl shadow-2xl"
+          />
+        </div>
+      )}
+    </>
   );
 }
