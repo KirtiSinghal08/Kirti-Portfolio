@@ -311,11 +311,13 @@ function AchievementCard({
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out"
           onClick={() => setLightbox(false)}
         >
-          <img
-            src={images![0]}
-            alt={title}
-            className="max-w-[90vw] max-h-[90vh] object-contain rounded-2xl shadow-2xl"
-          />
+          <div className="bg-white/10 backdrop-blur-xl p-3 rounded-3xl shadow-2xl">
+  <img
+    src={images![0]}
+    alt={title}
+    className="w-[360px] h-[220px] object-contain rounded-xl"
+  />
+</div>
         </div>
       )}
     </>
