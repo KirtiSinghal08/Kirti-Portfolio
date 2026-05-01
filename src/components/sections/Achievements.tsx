@@ -6,6 +6,10 @@ import sihClg from "@/components/sections/sihclg.jpeg";
 import ctf from "@/components/sections/CTF.jpeg";
 import hackamor from "@/components/sections/HACKMoR.jpeg";
 import hackwithindia from "@/components/sections/HackWithIndia.jpeg";
+import bubutalk from "@/components/sections/BubuTalk.png";
+import TedX from "@/components/sections/TedXmru.jpeg";
+import innoskill from "@/components/sections/innoskill.jpeg";
+import indianoil from "@/components/sections/indianoil.jpeg";
 import {
   Carousel,
   CarouselContent,
@@ -70,6 +74,7 @@ const items: Item[] = [
     description:
       "Collaborated on a rapid-build product challenge — focused on clean UX and shipping a working MVP within the time limit.",
     tags: ["React.js", "Frontend Dev", "MVP Build"],
+    images: [bubutalk],
   },
   {
     icon: Award,
@@ -78,6 +83,7 @@ const items: Item[] = [
     description:
       "Actively represented my college across multiple techfests — coding contests, design sprints and technical quizzes.",
     tags: ["DSA", "UI/UX", "Problem Solving"],
+    images: [TedX, innoskill, indianoil],
   },
 ];
 
@@ -188,11 +194,27 @@ function AchievementCard({
   const [lightbox, setLightbox] = useState(false);
   const { icon: Icon, title, detail, year, description, tags, highlight, images } = item;
   const hasImages = images && images.length > 0;
+  const [imgIndex, setImgIndex] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   return (
     <>
       <div
   onClick={() => hasImages && mode === "carousel" && setLightbox(true)}
+  onMouseEnter={() => {
+  if (images && images.length > 1 && intervalRef.current === null) {
+    intervalRef.current = setInterval(() => {
+      setImgIndex((prev) => (prev + 1) % images.length);
+    }, 1200);
+  }
+}}
+  onMouseLeave={() => {
+  if (intervalRef.current !== null) {
+    clearInterval(intervalRef.current);
+    intervalRef.current = null;
+  }
+  setImgIndex(0);
+}}
   className={`group reveal relative w-full overflow-hidden rounded-3xl transition-all duration-500 ease-out will-change-transform transform-gpu cursor-pointer
           hover:-translate-y-3 hover:z-20
           hover:shadow-[0_32px_80px_-12px_rgba(0,0,0,0.35)]
@@ -215,7 +237,7 @@ function AchievementCard({
     
     {/* Image */}
     <img
-      src={images[0]}
+      src={images[imgIndex]}
       alt={title}
       className="w-full h-full object-cover rounded-3xl"
     />
@@ -276,7 +298,7 @@ function AchievementCard({
           {hasImages && mode === "carousel" && (
   <div className="mt-4 w-full h-[160px] flex items-center justify-center rounded-xl overflow-hidden bg-background/40">
     <img
-      src={images[0]}
+      src={images[imgIndex]}
       alt={title}
       className="max-w-full max-h-full object-contain image-rendering-auto"
     />
@@ -331,7 +353,7 @@ function AchievementCard({
     >
       <div className="flex items-center justify-center w-[80vw] max-w-md aspect-[16/10] bg-black/90 rounded-xl">
         <img
-          src={images![0]}
+          src={images![imgIndex]}
           alt={title}
           className="max-w-full max-h-full object-contain scale-95 animate-in zoom-in-95 duration-300"
         />
