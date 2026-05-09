@@ -1,5 +1,5 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-
+import { useState, useEffect } from "react";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -29,14 +29,8 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { title: "Kirti Singhal" },
+      { name: "description", content: "Portfolio" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -68,5 +62,71 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  const [showIntro, setShowIntro] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
+
+  useEffect(() => {
+    const fadeTimer = setTimeout(() => setFadeOut(true), 2000);
+    const hideTimer = setTimeout(() => setShowIntro(false), 3100);
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
+
+  return (
+    <>
+      {showIntro && (
+        <div style={{
+          position: 'fixed', inset: 0, background: '#0a0a0a',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          flexDirection: 'column', zIndex: 9999,
+          opacity: fadeOut ? 0 : 1,
+          transition: 'opacity 0.9s ease',
+          pointerEvents: 'none',
+        }}>
+          <div style={{
+            fontSize: 'clamp(60px, 14vw, 140px)',
+            fontWeight: 700,
+            letterSpacing: '-0.03em',
+            color: '#f0ede6',
+            fontFamily: 'Georgia, serif',
+            lineHeight: 1,
+            animation: 'riseIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both',
+          }}>
+            KIRTI SINGHAL
+          </div>
+          <div style={{
+            width: fadeOut ? 0 : 80,
+            height: '1px',
+            background: '#f0ede6',
+            margin: '20px auto',
+            transition: 'width 0.6s ease',
+          }} />
+          <div style={{
+            fontSize: 'clamp(11px, 2vw, 14px)',
+            letterSpacing: '0.28em',
+            textTransform: 'uppercase',
+            color: '#888',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            marginTop: '4px',
+            animation: 'fadeUp 0.7s ease 0.9s both',
+          }}>
+            Portfolio · 2026
+          </div>
+          <style>{`
+            @keyframes riseIn {
+              from { opacity: 0; transform: translateY(40px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeUp {
+              from { opacity: 0; }
+              to { opacity: 1; }
+            }
+          `}</style>
+        </div>
+      )}
+      <Outlet />
+    </>
+  );
 }
