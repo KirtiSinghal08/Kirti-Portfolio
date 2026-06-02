@@ -88,7 +88,7 @@ export function Hero() {
               Contact Me
             </a>
             <a
-              href="https://pdflink.to/kirti-resume/"
+              href="https://pdflink.to/ks_resume/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-border text-foreground text-sm font-semibold hover:bg-background/60 transition"
