@@ -403,7 +403,7 @@ function IntroOverlay({ onDone }: { onDone: () => void }) {
         opacity: subShow && !subHide ? 1 : 0,
         transition: subHide ? "opacity 0.5s ease" : "opacity 1s ease 0.3s",
       }}>
-        portfolio · 2026
+        Dream it. Code it. Ship it.
       </div>
     </div>
   );
