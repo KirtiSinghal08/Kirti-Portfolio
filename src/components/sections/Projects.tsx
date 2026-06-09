@@ -31,7 +31,7 @@ const projects: Project[] = [
     gradient: "from-lavender via-petal to-azure",
     initial: "B",
     image: bubutalkImg,
-    live: "https://bubutalk.c37.airoapp.ai/"
+    live: "https://6nnpwsmi6z.preview.c37.airoapp.ai/?airoShareToken=Jh0WdoniRT36"
   },
   {
     name: "RakshaNetra",
