@@ -11,7 +11,7 @@ const items = [
       "Simplified complex tech topics into engaging posts.",
       "Improved audience reach and engagement.",
     ],
-    tags: ["Content Strategy", "Design", "Social Media"]
+    tags: ["Canva", "Capcut","Content Strategy", "Design", "Social Media"]
   },
   {
     icon: Crown,
@@ -23,7 +23,7 @@ const items = [
       "organized entrepreneurial events, workshops and pitch sessions.",
       "Strengthened leadership, Communication and team coordination skills.",
     ],
-    tags: ["Leadership", "Event Management", "Communication"]
+    tags: ["Leadership", "Event Management", "Communication", "Teamwork"]
   },
 ];
 
